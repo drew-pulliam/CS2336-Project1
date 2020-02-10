@@ -1,0 +1,35 @@
+Get Operation Result
+Parameters – String (operation), Object (operand 1), Object (operand 2)
+Return – String (operation result)
+
+Choose correct operation
+	Perform correct operation
+	Store result as a string in result variable
+Return result
+
+Print Output To File
+Parameters – String (operation), Object (operand 1), Object (operand 2)
+Returns – nothing
+
+Call Get Operation Result function and save the result as a string
+Print <expression><tab><result> to file
+		
+Main
+Open input file
+Open output file
+If input file opens properly
+	While not EOF
+		Read line
+		Check to ensure it is valid input, if not, skip that line
+		If it is valid input, parse into operands and operator
+		Store operands in Number and/or Complex objects
+		Perform operation and output to file
+Close files
+
++ (add)
+– (subtract)
+* (multiply)
+/ (divide)
+< (less than)
+> (greater than)
+= (equal)
