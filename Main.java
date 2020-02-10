@@ -15,7 +15,7 @@ public class Main {
 
         // ask user for input file name and initialize file input scanner
         System.out.println("Please input filename: ");
-        String userInput = "sample_expressions.txt";//userIn.nextLine();
+        String userInput = userIn.nextLine();
         Scanner fileIn = new Scanner(new File(userInput));
 
         // loop through the entire input file, saving pilot names and coordinates
@@ -40,6 +40,7 @@ public class Main {
                 continue;
             }
 
+            // save the original expression to print later (with the correct formatting)
             String originalExpression = operand0 + " " + operation + " " + operand1;
 
             Complex operand0Complex = null;
@@ -98,6 +99,7 @@ public class Main {
     }
 
     private static String getOperationResult(String operation, Object operand0, Object operand1){
+        // perform the desired operation and return the result as a string
         String result = "";
         boolean op0Complex = operand0 instanceof Complex;
 
@@ -109,51 +111,15 @@ public class Main {
         return result;
     }
 
-    private static void printOutputToFile(String operation, Object operand0, Object operand1, 
-                                                PrintWriter output, String originalExpression){
+    private static void printOutputToFile(String operation, Object operand0, Object operand1, PrintWriter output, String originalExpression){
         String result = getOperationResult(operation, operand0, operand1);
         if(result.isEmpty()){
             // ensures if the result is 0, it prints 0.00 and not nothing
             result = "0.00";
         }
+        // print the original expresssion to save formatting
         output.println(originalExpression + "	" + result);
     }
-
-    // private static Complex parseComplexOperand(String operand){
-    //     int plus = operand.indexOf("+");
-    //     int minus = operand.indexOf("-");
-    //     double num = 0.0;
-    //     double imaginary = 0.0;
-    //     if(plus > 0){
-    //         // number is complex, not just imaginary
-    //         num = Double.parseDouble(operand.substring(0, plus));
-    //         if(operand.substring(plus, operand.length()-1).equals("+")){
-    //             imaginary = 1.0;
-    //         }else{
-    //             imaginary = Double.parseDouble(operand.substring(plus, operand.length()-1));
-    //         }
-    //         return new Complex(num,imaginary);
-    //     }else if(minus > 0){
-    //         // number is complex, not just imaginary
-    //         num = Double.parseDouble(operand.substring(0, minus));
-    //         if(operand.substring(minus, operand.length()-1).equals("-")){
-    //             imaginary = -1.0;
-    //         }else{
-    //             imaginary = Double.parseDouble(operand.substring(minus, operand.length()-1));
-    //         }
-    //         return new Complex(num,imaginary);
-    //     }else{
-    //         // number is just imaginary
-    //         if(operand.substring(0, operand.length()-1).equals("-")){
-    //             imaginary = -1.0;
-    //         }else if(operand.substring(0, operand.length()-1).equals("")){
-    //             imaginary = 1.0;
-    //         }else{
-    //             imaginary = Double.parseDouble(operand.substring(0, operand.length()-1));
-    //         }
-    //         return new Complex(imaginary);
-    //     }
-    // }
 
     private static Complex parseComplexOperand(String operand){
         int plus = operand.indexOf("+", 1);
@@ -198,6 +164,8 @@ public class Main {
     }
 
     private static boolean isValidOperation(String operation){
+        // check if the operation is valid, return false if not
+        // then skip the line
         if(operation.equals("+") ||
         operation.equals("-") ||
         operation.equals("*") ||

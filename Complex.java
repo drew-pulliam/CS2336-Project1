@@ -66,7 +66,7 @@ public class Complex extends Number{
         if(x instanceof Number && x instanceof Complex == false){
             return new Complex(number + ((Number) x).getNum(), imaginary);
         }else if(x instanceof Complex){
-            return new Complex(number + ((Complex) x).getNum(), ((Complex) x).getImaginary());
+            return new Complex(number + ((Complex) x).getNum(), imaginary + ((Complex) x).getImaginary());
         }
         return null; // invalid object passed
     }
@@ -77,7 +77,7 @@ public class Complex extends Number{
         if(x instanceof Number && x instanceof Complex == false){
             return new Complex(number - ((Number) x).getNum(), imaginary);
         }else if(x instanceof Complex){
-            return new Complex(number - ((Complex) x).getNum(), ((Complex) x).getImaginary());
+            return new Complex(number - ((Complex) x).getNum(), imaginary - ((Complex) x).getImaginary());
         }
         return null; // invalid object passed
     }
