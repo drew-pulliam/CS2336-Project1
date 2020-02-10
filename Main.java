@@ -15,7 +15,7 @@ public class Main {
 
         // ask user for input file name and initialize file input scanner
         System.out.println("Please input filename: ");
-        String userInput = userIn.nextLine();//"sample_expressions.txt";
+        String userInput = "sample_expressions.txt";//userIn.nextLine();
         Scanner fileIn = new Scanner(new File(userInput));
 
         // loop through the entire input file, saving pilot names and coordinates
@@ -63,117 +63,13 @@ public class Main {
     }
 
     private static String getOperationResult(String operation, Object operand0, Object operand1){
-        String result = "bananas";
-        boolean op0Real = operand0 instanceof Number && operand0 instanceof Complex == false;
-        boolean op1Real = operand1 instanceof Number && operand1 instanceof Complex == false;
-        boolean op0Complex = operand0 instanceof Complex;
-        boolean op1Complex = operand1 instanceof Complex;
-
-        // check to make sure the operands are either real or complex
-        if(op0Real == false && op0Complex == false)
-            return "ERROR, op0 not real or complex";
-        if(op1Real == false && op1Complex == false)
-            return "ERROR, op1 not real or complex";
-
-        // save magnitude, real, and imaginary components as local variables
-        double op0Mag;
-        double op0Num;
-        double op0Imaginary;
-        if(op0Real){
-            op0Mag = ((Number)operand0).getMagnitude();
-            op0Num = ((Number)operand0).getNum();
-            op0Imaginary = 0;
-        }else{
-            op0Mag = ((Complex)operand0).getMagnitude();
-            op0Num = ((Complex)operand0).getNum();
-            op0Imaginary = ((Complex)operand0).getImaginary();
-        }
-
-        // save magnitude, real, and imaginary components as local variables
-        double op1Mag;
-        double op1Num;
-        double op1Imaginary;
-        if(op1Real){
-            op1Mag = ((Number)operand1).getMagnitude();
-            op1Num = ((Number)operand1).getNum();
-            op1Imaginary = 0;
-        }else{
-            op1Mag = ((Complex)operand1).getMagnitude();
-            op1Num = ((Complex)operand1).getNum();
-            op1Imaginary = ((Complex)operand1).getImaginary();
-        }
-
-        double i = 0.0;
-        double r = 0.0;
-        switch (operation){
-            case "+":
-                // add
-                r = op0Num + op1Num;
-                i = op0Imaginary + op1Imaginary;
-                result = formatResult(r, i);
-                break;
-            case "-":
-                // subtract
-                r = op0Num - op1Num;
-                i = op0Imaginary - op1Imaginary;
-                result = formatResult(r, i);
-                break;
-            case "*":
-                // multiply
-                if (op0Imaginary != 0 || op1Imaginary != 0){
-                    // complex multiply
-                    r = (op0Num * op1Num) - (op0Imaginary * op1Imaginary);
-                    i = (op0Num * op1Imaginary) + (op0Imaginary * op1Num);
-                    result = formatResult(r, i);
-                }else{
-                    result = String.format("%.2f", (op0Num * op1Num));
-                }
-                break;
-            case "/":
-                // divide
-                if (op0Imaginary != 0 || op1Imaginary != 0){
-                    // complex divide
-                    // multiply numerator and denom by complex conjugate of denom
-                    double numeratorReal = (op0Num * op1Num) - (op0Imaginary * -op1Imaginary);
-                    double numeratorImaginary = (op0Num * -op1Imaginary) + (op0Imaginary * op1Num);
-                    double denominatorReal = (op1Num * op1Num) - (op1Imaginary * -op1Imaginary);
-
-                    r = numeratorReal / denominatorReal;
-                    i = numeratorImaginary / denominatorReal;
-                    result = formatResult(r, i);
-                }else{
-                    result = String.format("%.2f", (op0Num / op1Num));
-                }
-                break;
-            case "<":
-                // less than
-                result = "" + (op0Mag < op1Mag);
-                break;
-            case ">":
-                // greater than
-                result = "" + (op0Mag > op1Mag);
-                break;
-            case "=":
-                // equal
-                result = "" + operand0.equals(operand1);
-                break;
-        }
-
-        return result;
-    }
-
-    private static String formatResult(double r, double i){
         String result = "";
-        if(r != 0.0){
-            // has a real component
-            result = String.format("%.2f", r);
-        }else{
-            // does not have a real component
-            result = "";
-        }
-        if(i != 0.0) {
-            // has an imaginary component
-            result = result + ((i>0.0 && r!=0.0) ? "+" : "") + String.format("%.2f",i) + "i";
+        boolean op0Complex = operand0 instanceof Complex;
+
+        if(op0Complex){
+            result = ((Complex) operand0).getOperationResult(operation,operand1);
+        }else if(op0Complex == false){
+            result = ((Number) operand0).getOperationResult(operation,operand1);
         }
         return result;
     }

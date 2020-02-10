@@ -59,6 +59,59 @@ public class Complex extends Number{
             return r + operator + i + "i";
         }
     }
+
+    public Object add(Object x){
+        // check if object passed is a complex or real number
+        // then add it and return the appropriate object
+        if(x instanceof Number && x instanceof Complex == false){
+            return new Complex(number + ((Number) x).getNum(), imaginary);
+        }else if(x instanceof Complex){
+            return new Complex(number + ((Complex) x).getNum(), ((Complex) x).getImaginary());
+        }
+        return null; // invalid object passed
+    }
+
+    public Object subtract(Object x){
+        // check if object passed is a complex or real number
+        // then add it and return the appropriate object
+        if(x instanceof Number && x instanceof Complex == false){
+            return new Complex(number - ((Number) x).getNum(), imaginary);
+        }else if(x instanceof Complex){
+            return new Complex(number - ((Complex) x).getNum(), ((Complex) x).getImaginary());
+        }
+        return null; // invalid object passed
+    }
+
+    public Object multiply(Object x){
+        // check if object passed is a complex or real number
+        // then multiply it and return the appropriate object
+        if(x instanceof Number && x instanceof Complex == false){
+            return new Complex(number * ((Number) x).getNum(), imaginary);
+        }else if(x instanceof Complex){
+            double r = number * ((Complex) x).getNum() - imaginary * ((Complex) x).getImaginary();
+            double i = number * ((Complex) x).getImaginary() + imaginary * ((Complex) x).getNum();
+            return new Complex(r, i);
+        }
+        return null; // invalid object passed
+    }
+
+    public Object divide(Object x){
+        // check if object passed is a complex or real number
+        // then multiply it and return the appropriate object
+        if(x instanceof Number && x instanceof Complex == false){
+            if(((Number) x).getNum() == 0.0)
+                return null; // eliminate division by zero
+            return new Complex(number / ((Number) x).getNum(), imaginary / ((Number) x).getNum());
+        }else if(x instanceof Complex){
+            double numeratorReal = number * ((Complex) x).getNum() - imaginary * -((Complex) x).getImaginary();
+            double numeratorImaginary = number * -((Complex) x).getImaginary() + imaginary * ((Complex) x).getNum();
+            double denominatorReal = Math.pow(((Complex) x).getNum(), 2) + Math.pow(((Complex) x).getImaginary(), 2);
+            if(denominatorReal == 0.0)
+                return null; // eliminate division by zero
+            return new Complex(numeratorReal / denominatorReal, numeratorImaginary / denominatorReal);
+        }
+        return null; // invalid object passed
+    }
     
     public boolean equals(Object x){
         // if the object passed into equals is also a Complex object, check that the numbers match
