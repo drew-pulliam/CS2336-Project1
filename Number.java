@@ -34,6 +34,7 @@ public class Number {
         number = num;
     }
 
+    @Override
     public String toString(){
         // return formatted string version of number
         return String.format("%.2f", number);
@@ -147,6 +148,7 @@ public class Number {
         return false; // invalid object passed
     }
     
+    @Override
     public boolean equals(Object x){
         // if the object passed into equals is also a Number object, check that the numbers match
         // otherwise, return false as the two objects are different

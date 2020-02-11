@@ -32,6 +32,7 @@ public class Complex extends Number{
         return imaginary;
     }
 
+    @Override
     public double getMagnitude(){
         // getter
         return Math.sqrt((number*number) + (imaginary*imaginary));
@@ -42,6 +43,7 @@ public class Complex extends Number{
         imaginary = i;
     }
 
+    @Override
     public String toString(){
         // return formatted string version of imaginary or complex number
         String i = String.format("%.2f", imaginary);
@@ -60,6 +62,7 @@ public class Complex extends Number{
         }
     }
 
+    @Override
     public Object add(Object x){
         // check if object passed is a complex or real number
         // then add it and return the appropriate object
@@ -71,6 +74,7 @@ public class Complex extends Number{
         return null; // invalid object passed
     }
 
+    @Override
     public Object subtract(Object x){
         // check if object passed is a complex or real number
         // then add it and return the appropriate object
@@ -82,6 +86,7 @@ public class Complex extends Number{
         return null; // invalid object passed
     }
 
+    @Override
     public Object multiply(Object x){
         // check if object passed is a complex or real number
         // then multiply it and return the appropriate object
@@ -95,6 +100,7 @@ public class Complex extends Number{
         return null; // invalid object passed
     }
 
+    @Override
     public Object divide(Object x){
         // check if object passed is a complex or real number
         // then multiply it and return the appropriate object
@@ -113,6 +119,7 @@ public class Complex extends Number{
         return null; // invalid object passed
     }
     
+    @Override
     public boolean equals(Object x){
         // if the object passed into equals is also a Complex object, check that the numbers match
         // otherwise, return false as the two objects are different
